@@ -1,0 +1,21 @@
+<ion-view view-title="User">
+  <ion-content>
+
+    <form name="userRegisterForm" novalidate mark-required>
+      <fieldset>
+        <label>Email</label>
+        <input type="text" name="userEmail" ng-model="ctrl.formData.email">
+        <p>{{ userRegisterForm.userEmail.$error }}</p>
+      </fieldset>
+
+      <fieldset>
+        <label>Password</label>
+        <input type="text" name="userPassword" ng-model="ctrl.formData.password">
+        <p>{{ userRegisterForm.userPassword.$error }}</p>
+      </fieldset>
+
+    </form>
+
+  </ion-content>
+</ion-view>
+
