@@ -7,7 +7,7 @@
  */
 
 //region imports
-import './lib/ionic/js/ionic.bundle.js';
+import './lib/ionic/js/ionic.bundle.min.js';
 import './modules/tabsModule/tabs.module.js';
 import './modules/homeModule/homeModule.js';
 import './modules/lostAnimalsModule/lostAnimals.module.js';
