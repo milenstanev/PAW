@@ -1,13 +1,21 @@
+/**
+ * Compile:
+ *  babel --presets es2015 app.js --out-file app.compiled.js
+ *  babel --presets es2015 app.js --out-file app.compiled.js --modules system
+ * Bundle:
+ *  jspm bundle app.js app.bundle.js
+ */
+
 //region imports
-import 'lib/ionic/js/ionic.bundle.js';
-import 'modules/tabsModule/tabs.module.js';
-import 'modules/homeModule/homeModule.js';
-import 'modules/lostAnimalsModule/lostAnimals.module.js';
-import 'modules/foundAnimalsModule/foundAnimals.module.js';
+import './lib/ionic/js/ionic.bundle.js';
+import './modules/tabsModule/tabs.module.js';
+import './modules/homeModule/homeModule.js';
+import './modules/lostAnimalsModule/lostAnimals.module.js';
+import './modules/foundAnimalsModule/foundAnimals.module.js';
 
 //global services
 import {
-    User,
+    UserService,
     ChatsService,
     InternationalizationService
 } from 'app.service.js';
@@ -41,7 +49,7 @@ import {
 
             i18n.defaultLanguage();
         })
-        .service('UserService', User)
+        .service('UserService', UserService)
         .factory('Chats', ChatsService)
         .factory('i18n', InternationalizationService);
-})()
+})();

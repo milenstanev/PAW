@@ -1,7 +1,7 @@
 /**
  * Created by milenstanev on 2/11/16.
  */
-export default class LostCategorysAngularModule {
+export default class LostCategorysAngularModule { //TODO: change it to something generic
   init(config) {
     angular.module(`PAW.${config.mainModule}.${config.Category}Module`, [])
       .config(($stateProvider) => {
@@ -69,9 +69,9 @@ export default class LostCategorysAngularModule {
 
       })
       .controller(`${config.mainModule}.${config.Category}.ChatsCtrl`, class {
-        constructor($scope, $rootScope, Chats, UserService) {
+        constructor($scope, $rootScope, $timeout, Chats, UserService) {
           this.state = 'initial';
-          //this.chats = Chats[`${config.mainModule}`];
+          this.chats = Chats[`${config.mainModule}`]; // Chats['foundAnimals' or 'foundAnimals']
           this.category = config.category;
           this.user = UserService;
           this.url = `${config.mainState}/${config.category}`;
@@ -80,12 +80,16 @@ export default class LostCategorysAngularModule {
 
           Chats[`get_${config.mainModule}`](config.category).then(
             (data) => {
-              if(!data.length) {
-                this.state = 'no-data';
-              } else {
-                this.state = 'ready';
-                this.chats = data;
-              }
+              /**
+               * The timeout is because the $scope don't make $digest for 'this.state' from time to time and we can't change the state in the template
+               */
+              $timeout(() => {
+                if(!data.length) {
+                  this.state = 'no-data';
+                } else {
+                  this.state = 'ready';
+                }
+              });
             },
             (error) => {
               this.state = 'error';
@@ -120,10 +124,28 @@ export default class LostCategorysAngularModule {
         }
       })
       .controller(`${config.mainModule}.${config.Category}.ChatDetailCtrl`, class {
-        constructor($stateParams, Chats) {
-          this.newMessage = "";
+        constructor($stateParams, Chats, $timeout) {
+          this.state = 'initial';
+          this.newMessage = '';
           this.messagesData = Chats.messages;
-          Chats.getMessages($stateParams.chatId);
+
+          Chats.getMessages($stateParams.chatId).then(
+              // Success
+              (data) => {
+                $timeout(() => {
+                  if(!data.length) {
+                    this.state = 'no-data';
+                  } else {
+                    this.state = 'ready';
+                  }
+                });
+              },
+              // Error
+              (error) => {
+                //TODO: implementation
+                this.state = 'error';
+              }
+          );
 
           //sendMessages
           this.send = () => {

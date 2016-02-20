@@ -1,7 +1,7 @@
 /**
  * Created by milenstanev on 2/11/16.
  */
-import AnimalsModule from '../Shared/AnimalsModule.js';
+import AnimalsModule from '../Shared/AnimalsModule.ES2015/index.js';
 
 class LostAnimals extends AnimalsModule {
   constructor() {
@@ -21,12 +21,12 @@ class LostAnimals extends AnimalsModule {
           "cat": "dogs",
           "title": "lost-dogs",
           "categoryDescription": "Lorem ipsum ..."
-        },
+        }/*,
         {
           "cat": "aa",
           "title": "lost-aa",
           "categoryDescription": "dsfsdfsfdsf"
-        }
+        }*/
       ]
     };
   }

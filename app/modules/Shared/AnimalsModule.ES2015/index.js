@@ -1,9 +1,9 @@
 /**
  * Created by milenstanev on 2/11/16.
  */
-import ModuleGenerator from './CategoriesModuleGenerator.js'; //TODO: change it to generic names
+import ModuleGenerator from './ModuleGenerator.js'; //TODO: change it to generic names
 
-export default class AnimalsModule {
+export default class Module {
   constructor() {
     this.config = undefined;
   }
@@ -51,7 +51,7 @@ export default class AnimalsModule {
          */
         linksDataCollection.push({
           title: categories[len].title,
-          text: categories[len].categoryDescription,
+          description: categories[len].categoryDescription,
           url: mainState,
           id: configChildModules.category
         });
