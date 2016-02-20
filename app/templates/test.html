@@ -1,0 +1,12 @@
+<ion-view view-title="Chats">
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-remove-animate item-avatar item-icon-right"
+                ng-repeat="chat in ctrl.chats"
+                type="item-text-wrap"
+                href="#/tab/{{url}}/{{chat.id}}">
+
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

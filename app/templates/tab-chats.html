@@ -1,0 +1,38 @@
+<ion-view view-title="{{ctrl.viewTtitle}}">
+  <ion-content>
+
+    <a ng-href="#/tab/{{ctrl.url}}/add-new"
+            class="button button-clear button-positive icon-left ion-ios-compose-outline">
+      {{ i18n['add-new'] ||  'Add new'}}
+    </a>
+
+
+    <ion-list>
+      <ion-item ng-if="ctrl.state !== 'ready'">
+        {{ ctrl.state }}
+      </ion-item>
+
+      <ion-item class="item-remove-animate item-avatar item-icon-right"
+                ng-if="ctrl.chats.length"
+                ng-repeat="chat in ctrl.chats | filter:ctrl.category"
+                type="item-text-wrap"
+                href="#/tab/{{ctrl.url}}/{{chat._id}}">
+
+        <img ng-src="{{chat.face}}">
+        <h2>{{chat.title}}</h2>
+        <p>{{chat.description}}</p>
+        <p>
+          {{ i18n['created-on'] || 'Created on:' }}
+          {{chat.created | date:'dd MM yyyy, hh:mm'}}
+        </p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+
+        <ion-option-button class="button-assertive" ng-click="remove(chat)">
+          Delete
+        </ion-option-button>
+
+      </ion-item>
+
+    </ion-list>
+  </ion-content>
+</ion-view>

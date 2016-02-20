@@ -1,0 +1,39 @@
+<ion-view view-title="{{ i18n['add-new-item'] || 'Add New item' }}">
+  <ion-content>
+
+    <form name="addNewItem" novalidate>
+
+      <div class="list list-inset">
+        <label class="item item-input">
+          <input type="text" placeholder="Title" ng-model="ctrl.fromData.title">
+        </label>
+        <label class="item item-input">
+          <textarea placeholder="Comments" placeholder="Description"
+                    ng-model="ctrl.fromData.description"></textarea>
+        </label>
+      </div>
+    </form>
+
+    <div class="padding">
+      <a class="button button-block button-positive"
+              ng-click="ctrl.add()">
+        {{ i18n['submit'] || 'Submit' }}
+      </a>
+    </div>
+
+    <!--<div class="list">
+      <label class="item item-input">
+        <input type="text" placeholder="Title" ng-model="ctrl.fromData.title">
+      </label>
+      <label class="item item-input">
+        <textarea placeholder="Comments" placeholder="Description" ng-model="ctrl.fromData.description"></textarea>
+      </label>
+
+      <button class="button button-small">
+        {{ i18n['submit'] || 'Submit' }}
+      </button>
+    </div>-->
+
+  </ion-content>
+</ion-view>
+
