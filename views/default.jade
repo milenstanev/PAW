@@ -7,9 +7,12 @@ html
         link(href="css/style.css" rel="stylesheet")
         script(src="jspm_packages/system.js")
         script(src="config.js")
-        script(src="app.run.js")
-    body
+        script(src="app.bundle.js")
+    body(ng-app='PAW')
         ion-nav-bar(class='bar-positive')
             ion-nav-back-button
 
         ion-nav-view
+
+    script
+        | System.import("app.js");
