@@ -71,14 +71,4 @@ lostAnimalsRouter.route('/messages/:category')
     });
 
 
-
-let socketInstance = (io) => {
-    io.on('connection', function (socket) {
-        socket.on('message', function (data) {
-            io.sockets.emit('broadcastMsg', data);
-        });
-    });
-}
-
-
-export { socketInstance, lostAnimalsRouter };
+export default lostAnimalsRouter;

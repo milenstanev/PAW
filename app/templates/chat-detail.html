@@ -1,20 +1,11 @@
 <ion-view view-title="{{ctrl.chat.name}}">
   <ion-content>
-
-    <div class="list">
-      <a class="item item-avatar" href="#" ng-repeat="message in ctrl.messagesData">
-        <!--<img src="venkman.jpg">-->
-        <h2>{{message.user}}</h2>
-        <p>{{message.message}}</p>
-      </a>
-    </div>
-
     <div class="padding">
       <label class="item item-input">
           <textarea
-            required
-            placeholder="{{ i18n['leave-message'] || 'Leave Message' }}"
-            ng-model="ctrl.newMessage"></textarea>
+                  required
+                  placeholder="{{ i18n['leave-message'] || 'Leave Message' }}"
+                  ng-model="ctrl.newMessage"></textarea>
       </label>
       <a class="button button-block button-positive"
          ng-disabled="!ctrl.newMessage"
@@ -23,5 +14,39 @@
       </a>
     </div>
 
+    <ion-list>
+
+      <ion-item ng-if="ctrl.state == 'initial'">
+        <p style="float: left; padding: 0.2em 0.2em 0 0"> {{ i18n['loading'] || 'Loading' }} </p>
+        <ion-spinner icon="ripple"></ion-spinner>
+      </ion-item>
+
+      <ion-item ng-if="ctrl.state == 'no-data'">
+        <p> {{ i18n['no-data'] || 'No Data' }} </p>
+      </ion-item>
+
+      <ion-item ng-if="ctrl.state == 'error'">
+        <p>{{ i18n['there-was-server-error'] || 'There was Server Error' }}</p>
+      </ion-item>
+
+      <ion-item ng-if="ctrl.state == 'ready'"
+                class="item-remove-animate item-avatar item-icon-right"
+                ng-repeat="message in ctrl.messagesData"
+                type="item-text-wrap">
+
+        <img ng-src="{{chat.face}}">
+        <h2>{{message.user}}</h2>
+        <p>{{message.message}}</p>
+
+        <!--<i class="icon ion-chevron-right icon-accessory"></i>
+        <ion-option-button class="button-assertive" ng-click="remove(chat)">
+          Delete
+        </ion-option-button>-->
+
+      </ion-item>
+
+    </ion-list>
+
   </ion-content>
+
 </ion-view>

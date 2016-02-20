@@ -6,14 +6,23 @@
       {{ i18n['add-new'] ||  'Add new'}}
     </a>
 
-
     <ion-list>
-      <ion-item ng-if="ctrl.state !== 'ready'">
-        {{ ctrl.state }}
+
+      <ion-item ng-if="ctrl.state == 'initial'">
+        <p style="float: left; padding: 0.2em 0.2em 0 0"> {{ i18n['loading'] || 'Loading' }} </p>
+        <ion-spinner icon="ripple"></ion-spinner>
       </ion-item>
 
-      <ion-item class="item-remove-animate item-avatar item-icon-right"
-                ng-if="ctrl.chats.length"
+      <ion-item ng-if="ctrl.state == 'no-data'">
+        <p> {{ i18n['no-data'] || 'No Data' }} </p>
+      </ion-item>
+
+      <ion-item ng-if="ctrl.state == 'error'">
+        <p>{{ i18n['there-was-server-error'] || 'There was Server Error' }}</p>
+      </ion-item>
+
+      <ion-item ng-if="ctrl.state == 'ready'"
+                class="item-remove-animate item-avatar item-icon-right"
                 ng-repeat="chat in ctrl.chats | filter:ctrl.category"
                 type="item-text-wrap"
                 href="#/tab/{{ctrl.url}}/{{chat._id}}">
@@ -25,8 +34,8 @@
           {{ i18n['created-on'] || 'Created on:' }}
           {{chat.created | date:'dd MM yyyy, hh:mm'}}
         </p>
-        <i class="icon ion-chevron-right icon-accessory"></i>
 
+        <i class="icon ion-chevron-right icon-accessory"></i>
         <ion-option-button class="button-assertive" ng-click="remove(chat)">
           Delete
         </ion-option-button>
@@ -34,5 +43,6 @@
       </ion-item>
 
     </ion-list>
+
   </ion-content>
 </ion-view>

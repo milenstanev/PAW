@@ -14,8 +14,12 @@ export class ExtArray extends Array {
   pushAll(data) {
     let len = data.length;
 
-    while (len--) {
-      this.push(data[len]);
-    }
+    return new Promise((resolve, reject) => {
+      while (len--) {
+        this.push(data[len]);
+      }
+      
+      resolve('ready');
+    });
   }
 }

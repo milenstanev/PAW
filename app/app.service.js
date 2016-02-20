@@ -47,7 +47,7 @@ export function ChatsService($http, $timeout) {
   socket.on('broadcastMsg', function (data) {
     if(data.secondaryId === currentCategory) {
       $timeout(() => {
-        messages.push(data);
+        messages.unshift(data);
       });
     } else {
       console.log('mseg: ' + JSON.stringify(data));
@@ -130,8 +130,11 @@ export function ChatsService($http, $timeout) {
 
         $http.get(`http://10.0.1.2:3003/api/lost-animals/${category}`)
           .then((res) => {
-            lostAnimals.pushAll(res.data);
-            resolve(lostAnimals);
+
+            lostAnimals.pushAll(res.data).then(() => {
+              resolve(lostAnimals);
+            });
+
           }, (error) => {
             reject(error);
           });
@@ -140,13 +143,16 @@ export function ChatsService($http, $timeout) {
 
     foundAnimals: foundAnimals,
     get_foundAnimals: (category) => {
-      return new Promise((resolve, reject) => {
-        foundAnimals.shiftAll();
+      foundAnimals.shiftAll();
 
+      return new Promise((resolve, reject) => {
         $http.get(`http://10.0.1.2:3003/api/found-animals/${category}`)
           .then((res) => {
-            foundAnimals.pushAll(res.data);
-            resolve(foundAnimals);
+
+            foundAnimals.pushAll(res.data).then(() => {
+              resolve(foundAnimals);
+            });
+
           }, (error) => {
             reject(error);
         });
@@ -183,17 +189,23 @@ export function ChatsService($http, $timeout) {
       currentCategory = category;
       messages.shiftAll();
 
-      $http({
-        url: `http://10.0.1.2:3003/api/messages/${category}`,
-        method: "GET",
-        headers: {'Content-Type': 'application/json'}
-      })
+      return new Promise((resolve, reject) => {
+        $http({
+          url: `http://10.0.1.2:3003/api/messages/${category}`,
+          method: "GET",
+          headers: {'Content-Type': 'application/json'}
+        })
         .success((res) => {
-          messages.pushAll(res, true);
+          
+          messages.pushAll(res, true).then(() => {
+            resolve(messages);
+          });
+
         })
-        .error(() => {
-          //TODO: implement errors
-        })
+        .error((error) => {
+          console.log(error);
+        });
+      });
 
     },
     sendMessages: (category, message, callBack) => {
@@ -207,7 +219,7 @@ export function ChatsService($http, $timeout) {
         headers: {'Content-Type': 'application/json'}
       })
         .success((res) => {
-          socket.emit('message', res);
+          socket.emit('message', res); //TODO: should be service
           callBack.call();
         })
         .error(() => {

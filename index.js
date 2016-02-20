@@ -5,17 +5,14 @@ import http from 'http';
 import socket from 'socket.io';
 
 //region Modules
-import {
-    socketInstance as ioInstance,
-    lostAnimalsRouter as api
-} from './server/routes/api';
+import api from './server/routes/api';
+import socketInstance from './server/sockets/socket';
 //endregion
 
 let app = express();
 let server = http.Server(app);
 let io = socket(server);
-
-ioInstance(io);
+socketInstance(io);
 
 //region set | use section
 app.set('view engine', 'jade');
