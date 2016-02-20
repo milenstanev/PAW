@@ -1,6 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import bodyParser from 'body-parser';
+import io from 'socket.io';
 
 import lostAnimalsModel from './models/lost-animals';
 import foundAnimalsModel from './models/found-animals';
@@ -8,7 +8,8 @@ import messagesModel from './models/messages.js';
 
 
 const db = mongoose.connect('mongodb://mstanev:qwerty@ds039155.mongolab.com:39155/testdb-mstanev');
-let lostAnimalsRouter = express.Router();
+let lostAnimalsRouter = express.Router(),
+    helper = {};
 
 lostAnimalsRouter.route('/lost-animals/:category')
     .post(function (req, res) {
@@ -50,13 +51,8 @@ lostAnimalsRouter.route('/messages/:category')
     .post(function (req, res) {
         var messages = new messagesModel(req.body);
         messages.secondaryId = req.params.category;
-        messages.save().then(function () {
 
-            /*var len = socketsCollecton.length;
-            console.log(len);
-            while (len--) {
-                socketsCollecton[len].emit('messages', req.params.category);
-            }*/
+        messages.save().then(function () {
 
         });
 
@@ -75,14 +71,14 @@ lostAnimalsRouter.route('/messages/:category')
     });
 
 
-export default lostAnimalsRouter;
 
-/*export default (app) => {
-    app.use('/api', lostAnimalsRouter);
-}*/
-
-/*
-module.exports = (app) => {
-    app.use('/api', lostAnimalsRouter);
+let socketInstance = (io) => {
+    io.on('connection', function (socket) {
+        socket.on('message', function (data) {
+            io.sockets.emit('broadcastMsg', data);
+        });
+    });
 }
-*/
+
+
+export { socketInstance, lostAnimalsRouter };

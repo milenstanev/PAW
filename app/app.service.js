@@ -4,7 +4,7 @@
 import io from 'lib/socket.io-client/socket.io.js';
 import {ExtArray} from './lib/custom.ES2015.helpers/helper.js';
 
-export function ChatsService($http) {
+export function ChatsService($http, $timeout) {
   let URL = "";
   var chats = [{
     id: 0,
@@ -36,24 +36,29 @@ export function ChatsService($http) {
   let lostAnimals = new ExtArray();
   let foundAnimals = new ExtArray();
   let messages = new ExtArray();
-
-
-  /*var socket = io.connect('10.0.1.2:3003');
+  
+  var socket = io.connect('10.0.1.2:3003');
 
   socket.on('connection', function (data) {
     console.log(data);
     //socket.emit('my other event', { my: 'data' });
   });
 
+  socket.on('broadcastMsg', function (data) {
+    if(data.secondaryId === currentCategory) {
+      $timeout(() => {
+        messages.push(data);
+      });
+    } else {
+      console.log('mseg: ' + JSON.stringify(data));
+    }
+  });
+
   socket.on('disconnect', function () {
     console.log('disconnected');
-  });*/
+  });
 
   let currentCategory;
-  /*socket.on('messages', function (cat) {
-    if(cat === currentCategory)
-      service.getMessages(cat);
-  });*/
 
   let service = {
     all: () => {
@@ -202,7 +207,7 @@ export function ChatsService($http) {
         headers: {'Content-Type': 'application/json'}
       })
         .success((res) => {
-          messages.unshift(res);
+          socket.emit('message', res);
           callBack.call();
         })
         .error(() => {
