@@ -37,7 +37,7 @@ export default ($http, $timeout) => {
     let foundAnimals = new ExtArray();
     let messages = new ExtArray();
 
-    var socket = io.connect('10.0.1.2:3003');
+    var socket = io.connect();
 
     socket.on('connection', function (data) {
         console.log(data);
@@ -128,7 +128,7 @@ export default ($http, $timeout) => {
             return new Promise((resolve, reject) => {
                 lostAnimals.shiftAll();
 
-                $http.get(`http://10.0.1.2:3003/api/lost-animals/${category}`)
+                $http.get(`/api/lost-animals/${category}`)
                     .then((res) => {
 
                         lostAnimals.pushAll(res.data).then(() => {
@@ -146,7 +146,7 @@ export default ($http, $timeout) => {
             foundAnimals.shiftAll();
 
             return new Promise((resolve, reject) => {
-                $http.get(`http://10.0.1.2:3003/api/found-animals/${category}`)
+                $http.get(`/api/found-animals/${category}`)
                     .then((res) => {
 
                         foundAnimals.pushAll(res.data).then(() => {
@@ -165,7 +165,7 @@ export default ($http, $timeout) => {
             data.user = "tiulenski";
 
             return $http({
-                url: `http://10.0.1.2:3003/api/lost-animals/${category}`,
+                url: `/api/lost-animals/${category}`,
                 method: "POST",
                 data: data,
                 headers: {'Content-Type': 'application/json'}
@@ -177,7 +177,7 @@ export default ($http, $timeout) => {
             data.user = "tiulenski";
 
             return $http({
-                url: `http://10.0.1.2:3003/api/found-animals/${category}`,
+                url: `/api/found-animals/${category}`,
                 method: "POST",
                 data: data,
                 headers: {'Content-Type': 'application/json'}
@@ -191,7 +191,7 @@ export default ($http, $timeout) => {
 
             return new Promise((resolve, reject) => {
                 $http({
-                    url: `http://10.0.1.2:3003/api/messages/${category}`,
+                    url: `/api/messages/${category}`,
                     method: "GET",
                     headers: {'Content-Type': 'application/json'}
                 })
@@ -210,7 +210,7 @@ export default ($http, $timeout) => {
         },
         sendMessages: (category, message, callBack) => {
             $http({
-                url: `http://10.0.1.2:3003/api/messages/${category}`,
+                url: `/api/messages/${category}`,
                 method: "POST",
                 data: {
                     message: message,
