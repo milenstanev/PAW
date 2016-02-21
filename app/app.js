@@ -4,6 +4,8 @@
  *  babel --presets es2015 app.js --out-file app.compiled.js --modules system
  * Bundle:
  *  jspm bundle app.js app.bundle.js
+ *  jspm bundle app.js app.bundle.js --inject --minify
+ *  jspm bundle app.js app.bundle.js --inject --minify --no-mangle
  */
 
 //region imports

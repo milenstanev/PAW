@@ -14,6 +14,7 @@ let server = http.Server(app);
 let io = socket(server);
 socketInstance(io);
 
+
 //region set | use section
 app.set('view engine', 'jade');
 app.set('views', path.join(__dirname + '/views'));
@@ -25,7 +26,6 @@ app.use(bodyParser.json());
 app.use('/api', api);
 //app.use('/api', socket);
 //endregion
-
 
 //region paths
 app.get('/', function(req, res){

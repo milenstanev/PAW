@@ -1,12 +1,23 @@
-//
-   Created by milenstanev on 2/19/16.
-extends layout
+doctype
+html
+    head
+        title
+        meta(name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width")
+        link(href="lib/ionic/css/ionic.css" rel="stylesheet")
+        link(href="css/style.css" rel="stylesheet")
+    body
+        div(class="bar bar-header bar-positive")
+            h1.title
+                | bar-light
 
-block content
 
-    ion-nav-bar(class="bar-positive")
-        ion-nav-back-button
-    ion-nav-view
+    div(class="view-container" nav-view-transition="ios" nav-view-direction="none" nav-swipe="")
+        div(class="tabs-icon-top tabs-color-active-positive pane tabs-bottom tabs-standard" nav-view="active" style="opacity: 1; transform: translate3d(0%, 0px, 0px);")
+    <div class="tab-nav tabs">
 
-    p
-        | asd
+    <!-- Dashboard Tab -->
+    <ion-tab icon-off="ion-home" icon-on="ion-home" href="#/tab/home" title="Начало"></ion-tab>
+
+    <ion-tab icon-off="ion-sad" icon-on="ion-sad" href="#/tab/lost-animals" title="Изгубени животни"></ion-tab>
+
+    <ion-tab icon-off="ion-happy" icon-on="ion-happy" href="#/tab/found-animals" title="Намерени животни"></ion-tab>
