@@ -1,9 +1,15 @@
 /**
+ * Run:
+ *  sudo nodemon ./node_modules/.bin/babel-node --presets es2015 index.js
  * Compile:
  *  babel --presets es2015 app.js --out-file app.compiled.js
  *  babel --presets es2015 app.js --out-file app.compiled.js --modules system
  * Bundle:
+ *  !! before that have to be called "jspm unbundle"
  *  jspm bundle app.js app.bundle.js
+ *  jspm bundle app.js app.bundle.js --inject --minify
+ *  jspm bundle app.js app.bundle.js --inject --minify --no-mangle
+ *  jspm bundle app.js - lib/ionic/js/ionic.bundle.min.js app.bundle.js --inject --minify --no-mangle
  */
 
 //region imports
@@ -29,7 +35,6 @@ import {
             'PAW.lostAnimalsModule',
             'PAW.foundAnimalsModule'
         ])
-
         .run(function($ionicPlatform, i18n) {
             $ionicPlatform.ready(function() {
                 if(window.cordova && window.cordova.plugins.Keyboard) {
@@ -52,4 +57,5 @@ import {
         .service('UserService', UserService)
         .factory('Chats', ChatsService)
         .factory('i18n', InternationalizationService);
+    
 })();
