@@ -1,4 +1,4 @@
-export default class User {
+class UserService {
     constructor($timeout) {
         this.$timeout = $timeout;
 
@@ -37,3 +37,5 @@ export default class User {
         }
     }
 }
+
+export default UserService;
