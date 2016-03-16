@@ -15,6 +15,7 @@ export default class Module {
        */
       return typeof this.config === "object" ? this.config : JSON.parse(this.config)
     })();
+
     let modulesStringCollection = [];
     let linksDataCollection = [];
     let mainModule = moduleConfig.mainModule;

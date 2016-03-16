@@ -19,7 +19,8 @@ lostAnimalsRouter.route('/lost-animals/:category')
         res.status(201).send(lostAnimal);
     })
     .get(function (req, res) {
-        lostAnimalsModel.find(
+        res.redirect('/users/#/users/123456');
+        /*lostAnimalsModel.find(
             {animal: req.params.category},
             (error, lostAnimals) => {
                 if(error) {
@@ -27,7 +28,7 @@ lostAnimalsRouter.route('/lost-animals/:category')
                 }  else {
                     res.json(lostAnimals);
                 }
-            });
+            });*/
     });
 
 lostAnimalsRouter.route('/found-animals/:category')
