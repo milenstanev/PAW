@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/babel-cli/.bin/babel-node --presets es2015 index.js",
-    "jspm-install": "./node_modules/.bin/jspm install"
+    "start": "babel-node --presets es2015 index.js"
   },
   "repository": {
     "type": "git",

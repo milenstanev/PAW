@@ -57,5 +57,4 @@ import {
         .service('UserService', UserService)
         .factory('Chats', ChatsService)
         .factory('i18n', InternationalizationService);
-    
 })();
