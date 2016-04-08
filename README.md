@@ -1,6 +1,10 @@
+build /----------------------
 sudo docker build -t paw .
+
+run /----------------
 sudo docker run paw
 sudo docker run -i -t --rm paw /bin/bash
+sudo docker run -p 3003:3003 -d paw
 
 --------------------------
 

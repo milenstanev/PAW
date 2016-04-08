@@ -1,9 +1,11 @@
 /**
  * Run:
  *  sudo nodemon ./node_modules/.bin/babel-node --presets es2015 index.js
+ * 
  * Compile:
  *  babel --presets es2015 app.js --out-file app.compiled.js
  *  babel --presets es2015 app.js --out-file app.compiled.js --modules system
+ * 
  * Bundle:
  *  !! before that have to be called "jspm unbundle"
  *  jspm bundle app.js app.bundle.js
