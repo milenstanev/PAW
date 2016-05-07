@@ -8,7 +8,7 @@ sudo docker run -p 3003:3003 -d paw
 
 --------------------------
 
-sudo docker ps -> list docker continers
+sudo docker ps -> list docker containers
 sudo docker stop 8ddb93a48ac4 -> stop container
 sudo docker exec -it 8ddb93a48ac4 /bin/bash -> access container
 
