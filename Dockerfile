@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 FROM node:onbuild
 
 ADD . /app
@@ -8,4 +9,10 @@ RUN npm install -g babel-cli
 RUN jspm install
 EXPOSE 3003
 
+=======
+FROM node:5.11.1
+COPY . /usr/local/paw
+WORKDIR /usr/local/paw
+RUN npm install
+>>>>>>> Stashed changes
 CMD ["npm", "start"]
