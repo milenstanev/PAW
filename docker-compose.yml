@@ -1,0 +1,11 @@
+web:
+  restart: always
+  build: .
+  container_name: PAW
+  command: npm start
+  ports:
+   - "3000:3000"
+  environment:
+   - NODE_ENV=development
+  volumes:
+   - ./:/usr/local/paw

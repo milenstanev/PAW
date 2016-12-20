@@ -5,12 +5,7 @@ html
         meta(name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width")
         link(href="lib/ionic/css/ionic.css" rel="stylesheet")
         link(href="css/style.css" rel="stylesheet")
-        script(src="jspm_packages/system.js")
-        script(src="config.js")
-        script
-            | System.import("app.js");
-    body(ng-app='PAW')
-        ion-nav-bar(class='bar-positive')
-            ion-nav-back-button
-
-        ion-nav-view
+    body
+        div(class="bar bar-header bar-positive")
+            h1.title
+                | bar light
