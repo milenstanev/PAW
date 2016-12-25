@@ -87,7 +87,7 @@ app.get('/:viewname', function(req, res) {
 //endregion
 
 
-server.listen('3003');
+server.listen('3000');
 /*app.listen(app.get('port'), function() {
     //debug('Express server listening on port ' + server.address().port);
     console.log("Server is started at:" + this.address().port);
