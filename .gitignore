@@ -2,3 +2,5 @@
 /app/jspm_packages
 /node_modules
 /.idea
+/app/jspm_packages/
+/app/config.js
