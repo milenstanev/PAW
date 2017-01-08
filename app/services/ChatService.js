@@ -18,6 +18,9 @@ export default ($http, $timeout) => {
         //socket.emit('my other event', { my: 'data' });
     });
 
+    /**
+     * @desc Watching about socket event 'broadcastMsg' and if it's currently used category will add message in the messages collection.
+     */
     socket.on('broadcastMsg', function (data) {
         if(data.secondaryId === currentCategory) {
             $timeout(() => {
