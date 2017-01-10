@@ -29,17 +29,17 @@ import {
 } from 'app.service.js';
 //endregion
 
-(() => {
-  angular.module('PAW', [
+const appModule = angular.module('PAW', [
     'ionic',
     'PAW.tabsModule',
     'PAW.homeModule',
     'PAW.lostAnimalsModule',
     'PAW.foundAnimalsModule'
-  ])
-      .run(function($ionicPlatform, i18n) {
-        $ionicPlatform.ready(function() {
-          if(window.cordova && window.cordova.plugins.Keyboard) {
+]);
+
+appModule.run(function($ionicPlatform, i18n) {
+    $ionicPlatform.ready(function() {
+        if(window.cordova && window.cordova.plugins.Keyboard) {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
             cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -48,16 +48,17 @@ import {
             // from snapping when text inputs are focused. Ionic handles this internally for
             // a much nicer keyboard experience.
             cordova.plugins.Keyboard.disableScroll(true);
-          }
-          if(window.StatusBar) {
+        }
+        if(window.StatusBar) {
             StatusBar.styleDefault();
-          }
-        });
+        }
+    });
 
-        i18n.defaultLanguage();
-      })
-      .service('UserService', UserService)
-      .factory('Chats', ChatsService)
-      .factory('i18n', InternationalizationService);
+    i18n.defaultLanguage();
+});
 
-})();
+appModule.service('UserService', UserService);
+
+appModule.factory('Chats', ChatsService);
+
+appModule.factory('i18n', InternationalizationService);

@@ -20,4 +20,4 @@ import welcomeModuleTpl from './defaultTpl.html!text';
       $urlRouterProvider.otherwise('/tab/welcome');
     })
 
-})()
+})();

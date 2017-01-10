@@ -4,12 +4,89 @@
 import io from 'lib/socket.io-client/socket.io.js';
 import {ExtArray} from 'lib/custom.ES2015.helpers/helper.js';
 
+
+class SocketConnector {
+    constructor(messageName) {
+        /**
+         * @desc Keep status state.
+         * @type {boolean}
+         */
+        this.isConnected = false;
+        this.deplayBeforReconnect = 1000; // TODO: to be implemented
+        this.howManyDeleysBeforeStop = 5; // TODO: to be implemented
+        this.messageName = messageName || 'broadcastMsg';
+
+        this.init();
+    }
+
+    init() {
+        this.scocket = io.connect(); // TODO: take a look how it's working connection/reconnection .etc
+        /**
+         *
+         */
+        this.scocket.on('connection', (...args) => {
+            this.constructor._onConnect.call(this, ...args);
+        });
+        /**
+         *
+         */
+        this.scocket.on('disconnect', (...args) => {
+            this.constructor._onDisconnect.call(this, ...args);
+        });
+        /**
+         *
+         */
+        this.scocket.on(this.messageName, (...args) => {
+            this.constructor._onMessage.call(this, ...args);
+        });
+    }
+
+    /**
+     * @abstract
+     * @desc It will be called when socket broadcast message with configured name "messageName"
+     * @param {object} data - Could work with data model as well, the object model of messages.
+     */
+    onMessage(...args) {
+        console.info(...args, 'Have to be implemented!');
+    }
+    static _onMessage(...args) {
+        this.onMessage(...args);
+        // Do something that is for static
+    }
+
+    onConnect(...args) {
+        console.info(...args);
+    }
+    static _onConnect(...args) {
+        this.isConnected = true;
+        // Do something that is for static
+        this.onConnect(...args);
+    }
+
+
+    onDisconnect(...args) {
+        console.info(...args);
+    }
+    static _onDisconnect(...args) {
+        this.isConnected = false;
+        // Do something that is for static
+        this.onDisconnect(...args);
+    }
+}
+
 export default ($http, $timeout) => {
     let URL = "";
 
     let lostAnimals = new ExtArray();
     let foundAnimals = new ExtArray();
     let messages = new ExtArray();
+
+    let socketConnector = new SocketConnector();
+
+    socketConnector.onMessage = (msg) => {
+        console.log(msg);
+    };
+
 
     var socket = io.connect();
 
